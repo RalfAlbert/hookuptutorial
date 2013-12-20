@@ -13,10 +13,13 @@ function start_plugin_hookup() {
 	// create an object in another function, but do not make the object global
 	non_global_object();
 
+	// direct class call
+	new PrintAdminNotice( 'The anonymous class instance...' );
+
 	// use an anonymous function stored in a variable, but didn't make the variable global
 	non_global_anonymous_function();
 
-	// use an anonymous function within the add_action() call
+	// use an anonymous function (closure) within the add_action() call
 	add_action(
 		'admin_notices',
 		function() { echo '<div class="error">There is no way to remove me!!</div>'; },
@@ -52,7 +55,7 @@ function non_global_object() {
 }
 
 function non_global_anonymous_function() {
-	$removenot = function() { echo '<div class="error">I\'m a anonymous function stored in a var, but I\'m not global so you can\'t remove me.</div>'; };
+	$removenot = function() { echo '<div class="error">I\'m an anonymous function stored in a var, but I\'m not global so you can\'t remove me.</div>'; };
 	add_action(
 		'admin_notices',
 		$removenot,
