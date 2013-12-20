@@ -33,7 +33,6 @@ function start_plugin_hookup() {
 
 }
 
-
 add_action(
 	'plugins_loaded',
 	'start_plugin_hookup'
