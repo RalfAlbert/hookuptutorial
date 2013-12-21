@@ -1,70 +1,72 @@
 <?php
 /**
- * Plugin Name: 01_HookUp Tutorial - Part One
- * Description: Adding and removing hooks in a prozedual programming
- */
+* Plugin Name: 01_HookUp Tutorial - Part One.
+* Description: Adding and removing hooks in a prozedual programming
+*/
 
 add_action(
-	'plugins_loaded',
-	'add_widget_hook'
+        'plugins_loaded',
+        'add_widget_hook'
 );
 
 function add_widget_hook() {
 
-	add_action(
-		'wp_dashboard_setup',
-		'add_dashboard_widget'
-	);
+        add_action(
+                'wp_dashboard_setup',
+                'add_dashboard_widget'
+        );
 
 }
 
 function add_dashboard_widget() {
 
-	wp_add_dashboard_widget(
-		'Test-widget',
-		'Test Widget',
-		'hooktest_output',
-		$control_callback = null
-	);
+        wp_add_dashboard_widget(
+                'Test-widget',
+                'Test Widget',
+                'hooktest_output',
+                $control_callback = null
+        );
 
 }
 
 
 function hooktest_output() {
 
-	add_action( 'test_hook', 'hook_callback', 0, 2 );
+        add_action( 'test_hook', 'hook_callback', 0, 2 );
+        add_filter( 'test_hook', 'hook_callback', 0, 2 );
 
-	$demo = new Demo_Hook();
-	add_action( 'test_hook', array( $demo, 'print_var' ), 0, 1 );
-
-// 	unset( $GLOBALS['wp_filter']['test_hook'] );
-	// [...]
+        // [...]
 
 
-	echo '<div class="wrap">';
+        echo '<div class="wrap">';
+        var_dump( $GLOBALS['wp_filter']['test_hook'] );
 
-	var_dump( $GLOBALS['wp_filter']['test_hook'][0] );
+        $var_old = 'The callback';
 
-	$var = 'The callback';
+        do_action( 'test_hook', $var_old, 'do_action' );
 
-	do_action( 'test_hook', $var_old );
+        $var_new = apply_filters( 'test_hook', $var_old );
 
-	echo '</div>';
+        printf( '<p>With apply_filters(): %s</p>', $var_new );
 
-}
 
-function hook_callback( $hook_var ) {
-
-	printf( 'With do_action(): %s was called by <code>do_action()</code><br>', $hook_var );
-
-	return true;
+        echo '</div>';
 
 }
 
-class Demo_Hook
-{
-	public function print_var( $var ) {
-		printf( '<p>%s</p>', $var );
-	}
-}
+function hook_callback( $hook_var, $action_or_filter = 'do_filter' ) {
 
+        if ( 'do_action' === $action_or_filter ) {
+
+                printf( 'With do_action(): %s was called by <code>do_action()</code><br>', $hook_var );
+
+                return true;
+
+        }
+
+        $hook_var = (string) $hook_var;
+        $hook_var .= ' was called by <code>apply_filters()</code>';
+
+        return $hook_var;
+
+}
