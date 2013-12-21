@@ -10,12 +10,11 @@ function start_plugin_hookup() {
 
 	global $pagenow;
 
-	$msg_red  = new PrintAdminNotice( 'Woohoo! The plugin works!' );
+	$msg_red   = new PrintAdminNotice( 'Woohoo! The plugin works!' );
+	$msg_green = new PrintAdminNotice( 'On the dashboard another message will be displayed.' );
+	$msg_green->css_class = 'updated';
 
 	if ( 'index.php' == $pagenow ) {
-
-		$msg_green = new PrintAdminNotice( 'On the dashboard another message will be displayed.' );
-		$msg_green->css_class = 'updated';
 
 		remove_action(
 			'admin_notices',
