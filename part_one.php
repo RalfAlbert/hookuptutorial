@@ -39,7 +39,7 @@ function hooktest_output() {
 
 
 	echo '<div class="wrap">';
-	var_dump( $GLOBALS['wp_filter']['test_hook'] );
+	var_dump( $GLOBALS['wp_filter']['test_hook'][0] );
 
 	$var_old = 'The callback';
 
