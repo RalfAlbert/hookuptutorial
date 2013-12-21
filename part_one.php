@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: 01_HookUp Tutorial - Part One.
+ * Plugin Name: 01_HookUp Tutorial - Part One
  * Description: Adding and removing hooks in a prozedual programming
  */
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: 03_HookUp Tutorial - Part Three.
+ * Plugin Name: 03_HookUp Tutorial - Part Three
  * Description: Hooks added by an anonymous function. <strong>This part requires at minimum PHP5.3!</strong>
  */
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: 02_HookUp Tutorial - Part Two.
+ * Plugin Name: 02_HookUp Tutorial - Part Two
  * Description: Remove hooks with _wp_filter_build_unique_id() added by a class
  */
 
