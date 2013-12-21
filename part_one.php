@@ -33,41 +33,38 @@ function add_dashboard_widget() {
 function hooktest_output() {
 
 	add_action( 'test_hook', 'hook_callback', 0, 2 );
-	add_filter( 'test_hook', 'hook_callback', 0, 2 );
 
+	$demo = new Demo_Hook();
+	add_action( 'test_hook', array( $demo, 'print_var' ), 0, 1 );
+
+// 	unset( $GLOBALS['wp_filter']['test_hook'] );
 	// [...]
 
 
 	echo '<div class="wrap">';
+
 	var_dump( $GLOBALS['wp_filter']['test_hook'][0] );
 
-	$var_old = 'The callback';
+	$var = 'The callback';
 
-	do_action( 'test_hook', $var_old, 'do_action' );
-
-	$var_new = apply_filters( 'test_hook', $var_old );
-
-	printf( '<p>With apply_filters(): %s</p>', $var_new );
-
+	do_action( 'test_hook', $var_old );
 
 	echo '</div>';
 
 }
 
-function hook_callback( $hook_var, $action_or_filter = 'do_filter' ) {
+function hook_callback( $hook_var ) {
 
-	if ( 'do_action' === $action_or_filter ) {
+	printf( 'With do_action(): %s was called by <code>do_action()</code><br>', $hook_var );
 
-		printf( 'With do_action(): %s was called by <code>do_action()</code><br>', $hook_var );
+	return true;
 
-		return true;
+}
 
+class Demo_Hook
+{
+	public function print_var( $var ) {
+		printf( '<p>%s</p>', $var );
 	}
-
-	$hook_var = (string) $hook_var;
-	$hook_var .= ' was called by <code>apply_filters()</code>';
-
-	return $hook_var;
-
 }
 
